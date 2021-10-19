@@ -1,4 +1,5 @@
 import { DrawGo } from "../Draw/draw";
+import { ProxyEvent } from "../Draw/proxyEvent";
 
 export class useSingle {
 
@@ -13,6 +14,16 @@ export class useSingle {
     }
 }
 
+/**
+ * @description 获取全局上下文
+ */
 export const useContext = (canvas?: HTMLCanvasElement): [DrawGo] => {
     return [useSingle.useInstance(DrawGo, canvas)];
+}
+
+/**
+ * @description 获取单例事件代理
+ */
+export const useProxyEvent = (): [ProxyEvent] => {
+    return [useSingle.useInstance(ProxyEvent)]
 }
