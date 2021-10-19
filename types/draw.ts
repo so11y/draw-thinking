@@ -1,5 +1,5 @@
-import { Draw } from "../Draw/parentDraw";
-import { IApplyInterface } from "../types/gesture";
+import { Draw } from "../Draw/baseDraw";
+import { IApplyInterface } from "./gesture";
 
 export type DrawRect = Pick<Draw, "x" | "y" | "width" | "height">;
 

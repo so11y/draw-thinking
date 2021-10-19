@@ -1,7 +1,7 @@
 import { move } from "../gesture/move";
 import { IDraw } from "../util/draw";
 import { useContext } from "../util/useSingle";
-import { Draw } from "./parentDraw";
+import { Draw } from "./baseDraw";
 
 /**
  * 必须实现IDraw中定义的类型

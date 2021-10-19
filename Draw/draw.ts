@@ -1,4 +1,4 @@
-import { Draw } from "./parentDraw";
+import { Draw } from "./baseDraw";
 
 export class DrawGo {
 

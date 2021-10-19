@@ -1,4 +1,4 @@
-import { DrawRect } from "./draw";
+import { DrawRect } from "../types/draw";
 
 export const areaDetection = (x: number, y: number, drawItem: DrawRect) => {
     /**

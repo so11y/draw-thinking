@@ -1,6 +1,5 @@
 import { DrawGo } from "../Draw/draw";
-import { ProxyEvent } from "../Draw/proxyEvent";
-
+import { ProxyEvent } from "../gesture/proxyEvent";
 export class useSingle {
 
     private static _instanceMap = new WeakMap();

@@ -1,6 +1,6 @@
 import { IApplyInterface } from "../types/gesture";
-import { IDraw } from "../util/draw";
-import { Draw } from "./parentDraw";
+import { IDraw } from "../types/draw";
+import { Draw } from "./baseDraw";
 
 export class DrawMode implements IDraw {
     x: number;

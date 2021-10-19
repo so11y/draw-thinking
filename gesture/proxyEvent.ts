@@ -1,7 +1,7 @@
-import { IApplyInterface, Igesture, IgestureInstance } from "../types/gesture";
+import { Draw } from "../Draw/baseDraw";
+import { IApplyInterface  } from "../types/gesture";
 import { areaDetection } from "../util/functional";
 import { useContext } from "../util/useSingle";
-import { Draw } from "./parentDraw";
 
 export class ProxyEvent {
 
