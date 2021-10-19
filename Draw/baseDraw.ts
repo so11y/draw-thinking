@@ -1,6 +1,6 @@
 
 import { useProxyEvent } from "../util/useSingle";
-import { DrawMode } from "./DrawMode";
+import { DrawMode } from "./drawMode";
 
 export class Draw extends DrawMode {
 
