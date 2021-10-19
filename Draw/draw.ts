@@ -51,7 +51,7 @@ export class DrawGo {
 
             button.addEventListener("click", () => {
 
-                const drawItem = new value(this.ctx);
+                const drawItem = new value();
 
                 this.contextCanvasList.push(drawItem);
 

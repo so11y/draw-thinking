@@ -87,7 +87,6 @@ export class ProxyEvent {
         }
     }
 
-
     areaDetection(x: number, y: number, drawItem: DrawRect) {
         /**
          * 距离头部的y需要加一下

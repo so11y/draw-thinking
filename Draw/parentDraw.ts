@@ -5,15 +5,11 @@ import { ProxyEvent } from "./proxyEvent";
 
 export class Draw extends DrawMode {
 
-    ctx: CanvasRenderingContext2D;
-
     proxyEvent: ProxyEvent;
 
-    constructor(ctx: CanvasRenderingContext2D) {
+    constructor() {
 
         super();
-
-        this.ctx = ctx;
 
         const [proxyEvent] = useProxyEvent();
 

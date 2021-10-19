@@ -1,3 +1,4 @@
+import { useContext } from "../util/useSingle";
 import { IDraw } from "./DrawMode";
 import { Draw } from "./parentDraw";
 
@@ -12,19 +13,21 @@ export class DrawRect extends Draw implements IDraw {
         super.draw();
     }
     highlightDraw() {
-        this.ctx.beginPath();
-        this.ctx.save();
+        const [context] = useContext();
+        context.ctx.beginPath();
+        context.ctx.save();
         if (this.isHighlight) {
-            this.ctx.strokeStyle = "red";
+            context.ctx.strokeStyle = "red";
         }
         this.beforeDraw();
-        this.ctx.restore();
-        this.ctx.closePath();
+        context.ctx.restore();
+        context.ctx.closePath();
     }
 
     beforeDraw() {
-        const { x, y, width, height, ctx } = this;
-        this.ctx.rect(x, y, width, height);
-        ctx.stroke();
+        const { x, y, width, height } = this;
+        const [context] = useContext();
+        context.ctx.rect(x, y, width, height);
+        context.ctx.stroke();
     }
 }
