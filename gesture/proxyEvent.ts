@@ -7,8 +7,6 @@ export class ProxyEvent {
 
     private _register = new WeakMap<Draw, Array<IApplyInterface>>();
 
-    tag: Draw;
-
     constructor() {
         window.addEventListener("mousedown", this.apply.bind(this));
     }
@@ -47,7 +45,6 @@ export class ProxyEvent {
 
             window.addEventListener("mouseup", mouseUp);
         }
-
 
     }
     /**
