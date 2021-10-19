@@ -1,28 +1,18 @@
 
 import { useProxyEvent } from "../util/useSingle";
 import { DrawMode } from "./DrawMode";
-import { ProxyEvent } from "./proxyEvent";
 
 export class Draw extends DrawMode {
 
-    proxyEvent: ProxyEvent;
-
-    constructor() {
-
-        super();
+    addProxy() {
 
         const [proxyEvent] = useProxyEvent();
 
-        this.proxyEvent = proxyEvent;
-
-    }
-
-    addProxy() {
-        this.proxyEvent.add(this);
+        proxyEvent.register(this,this.plugins);
     }
 
     draw() {
         this.addProxy();
-    };
+    }
 
 }

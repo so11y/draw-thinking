@@ -1,14 +1,6 @@
+import { IApplyInterface } from "../types/gesture";
+import { IDraw } from "../util/draw";
 import { Draw } from "./parentDraw";
-
-export interface IDraw {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-    parent: Draw;
-    depend: Array<Draw>;
-    isHighlight: boolean;
-}
 
 export class DrawMode implements IDraw {
     x: number;
@@ -18,4 +10,5 @@ export class DrawMode implements IDraw {
     parent: Draw;
     depend: Array<Draw> = [];
     isHighlight: boolean = false;
+    plugins: IApplyInterface[];
 }
