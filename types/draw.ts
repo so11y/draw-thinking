@@ -2,8 +2,6 @@ import { Draw } from "../Draw/baseDraw";
 import { IApplyInterface } from "./gesture";
 
 export type DrawRect = Pick<Draw, "x" | "y" | "width" | "height">;
-
-
 export interface IDraw {
     /**
      * @description 左

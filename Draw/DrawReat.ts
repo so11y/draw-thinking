@@ -1,5 +1,5 @@
 import { move } from "../gesture/move";
-import { IDraw } from "../util/draw";
+import { IDraw } from "../types/draw";
 import { useContext } from "../util/useSingle";
 import { Draw } from "./baseDraw";
 

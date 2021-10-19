@@ -1,9 +1,5 @@
 import { IApplyInterface } from "../types/gesture";
-import { areaDetection } from "../util/functional";
 import { useContext } from "../util/useSingle";
-
-
-
 
 export const move: IApplyInterface = () => {
 
