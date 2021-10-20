@@ -41,10 +41,9 @@ export const move: IApplyInterface = () => {
             point.y = e.clientY - top;
         },
         move({ clientX, clientY }: MouseEvent) {
-            const x = Math.abs(point.x - clientX - activeX);
-            const y = Math.abs(point.y - clientY - activeY);
-            context.activeCanvas.x = x - left;
-            context.activeCanvas.y = y - top;
+
+            context.activeCanvas.x = Math.abs(point.x - clientX - activeX)- left;
+            context.activeCanvas.y = Math.abs(point.y - clientY - activeY) - top;
 
             if (context.activeCanvas.depend.length) {
 
