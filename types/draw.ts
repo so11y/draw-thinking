@@ -4,6 +4,10 @@ import { IApplyInterface } from "./gesture";
 export type DrawRect = Pick<Draw, "x" | "y" | "width" | "height">;
 export interface IDraw {
     /**
+     * @description 組件名稱 唯一
+     */
+    componentKey: string;
+    /**
      * @description 左
      */
     x: number;

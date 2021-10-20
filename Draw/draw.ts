@@ -39,6 +39,13 @@ export class DrawGo {
         this.ctx = ctx;
     }
 
+    get offset() {
+        return {
+            top: this.canvas.offsetTop,
+            left: this.canvas.offsetLeft
+        }
+    }
+
     go() {
 
         this.configCanvas();

@@ -1,4 +1,4 @@
-type InstanceType = "move";
+type InstanceType = "move" | "contour";
 //手势
 export type Igesture = Array<InstanceType>;
 

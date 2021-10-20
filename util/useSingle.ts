@@ -1,5 +1,6 @@
 import { DrawGo } from "../Draw/draw";
 import { ProxyEvent } from "../gesture/proxyEvent";
+import { IgestureInstance } from "../types/gesture";
 export class useSingle {
 
     private static _instanceMap = new WeakMap();
@@ -25,4 +26,19 @@ export const useContext = (canvas?: HTMLCanvasElement): [DrawGo] => {
  */
 export const useProxyEvent = (): [ProxyEvent] => {
     return [useSingle.useInstance(ProxyEvent)]
+}
+
+
+export const useObserveMove = (obEvent: Omit<IgestureInstance, "type">): [(e: MouseEvent) => void] => {
+    const end = (e: MouseEvent) => {
+        obEvent.end(e);
+        window.removeEventListener("mousemove", obEvent.move);
+        window.removeEventListener("mouseup", end);
+    }
+    window.addEventListener("mousemove", obEvent.move);
+    window.addEventListener("mouseup", end);
+
+    return [(e: MouseEvent) => {
+        obEvent.start(e);
+    }];
 }
