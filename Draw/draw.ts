@@ -36,6 +36,8 @@ export class DrawGo {
 
         ctx.strokeStyle = "black";
 
+        ctx.lineWidth = 5;
+
         this.ctx = ctx;
     }
 

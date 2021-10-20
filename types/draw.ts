@@ -32,10 +32,6 @@ export interface IDraw {
      */
     depend: Array<Draw>;
     /**
-     * @description 是否是当前激活象
-     */
-    isHighlight: boolean;
-    /**
      * @description 申明需要使用到的手势
      */
     plugins: IApplyInterface[];

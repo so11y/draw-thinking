@@ -24,22 +24,14 @@ export class DrawRect extends Draw implements IDraw {
     draw() {
         const { x, y, width, height } = this;
         const [context] = useContext();
+        context.ctx.save()
         context.ctx.beginPath();
+        context.ctx.fillStyle = '#fff';
         context.ctx.rect(x, y, width, height);
         context.ctx.stroke();
+        context.ctx.fill();
         context.ctx.closePath();
+        context.ctx.restore();
         super.draw();
     }
-
-    // highlightDraw() {
-    //     const [context] = useContext();
-    //     context.ctx.beginPath();
-    //     context.ctx.save();
-    //     if (this.isHighlight) {
-    //         context.ctx.strokeStyle = "red";
-    //     }
-    //     this.beforeDraw();
-    //     context.ctx.restore();
-    //     context.ctx.closePath();
-    // }
 }

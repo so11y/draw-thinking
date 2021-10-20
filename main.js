@@ -1,4 +1,3 @@
-import { DrawContour } from "./Draw/drawContour";
 import { DrawRect } from "./Draw/DrawReat";
 import { useContext } from "./util/useSingle";
 
@@ -8,6 +7,5 @@ const [drawGo] = useContext(
 
 
 drawGo
-    .register("绘制矩形", DrawRect)
-    // .register("描边测试", DrawContour)
+    .register("绘制矩形1", DrawRect)
     .go();

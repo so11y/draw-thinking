@@ -10,6 +10,5 @@ export class DrawMode implements IDraw {
     height: number;
     parent: Draw;
     depend: Array<Draw> = [];
-    isHighlight: boolean = false;
-    plugins: IApplyInterface[];
+    plugins: IApplyInterface[] = [];
 }

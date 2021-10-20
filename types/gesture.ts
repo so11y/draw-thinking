@@ -1,3 +1,5 @@
+import { Draw } from "../Draw/baseDraw";
+
 type InstanceType = "move" | "contour";
 //手势
 export type Igesture = Array<InstanceType>;
@@ -19,3 +21,9 @@ export interface IgestureInstance {
 }
 
 export type IApplyInterface = () => IgestureInstance;
+
+
+
+export type GetDrawNumberType = {
+    [P in keyof Draw]: Draw[P] extends number ? P : never;
+}[keyof Draw]

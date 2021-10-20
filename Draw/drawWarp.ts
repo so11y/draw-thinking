@@ -2,14 +2,9 @@ import { IDraw } from "../types/draw";
 import { useContext } from "../util/useSingle";
 import { Draw } from "./baseDraw";
 
-/**
- * 描邊組件不需要添加手勢
- * 在沒有目標的時候會自己渲染描邊
- * 縂的來說這個比較特殊
- */
-export class DrawContour extends Draw implements IDraw {
+export class DrawWarp extends Draw implements IDraw {
 
-    componentKey = "drawContour";
+    componentKey = "DrawWarp";
 
     x: number = 0;
 
@@ -19,19 +14,17 @@ export class DrawContour extends Draw implements IDraw {
 
     height: number = 0;
 
-    plugins = [];
 
     draw() {
+        const margin = 10;
         const { x, y, width, height } = this;
         const [context] = useContext();
         context.ctx.save()
         context.ctx.beginPath();
-        context.ctx.strokeStyle = '#29aad7';
         context.ctx.lineWidth = 1;
-        context.ctx.fillStyle = 'rgba(41,170,215,0.1)';
-        context.ctx.rect(x, y, width, height);
+        context.ctx.strokeStyle = '#29aad7';
+        context.ctx.rect(x - margin, y - margin, width + margin * 2, height + margin * 2);
         context.ctx.stroke();
-        context.ctx.fill();
         context.ctx.closePath();
         context.ctx.restore();
         super.draw();
