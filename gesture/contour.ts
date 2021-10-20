@@ -68,6 +68,14 @@ const isDrawWarp = (draw: Draw) => {
         warpInstanc.width = rect.width;
         warpInstanc.height = rect.height;
 
+        //将全选框的依赖添加到warpInstanc中
+        draw.depend.forEach(v => {
+            v.parent = warpInstanc;
+            warpInstanc.depend.push(v);
+        })
+
+        draw.depend = [];
+
         context.contextCanvasList.push(warpInstanc);
     }
 }
@@ -94,8 +102,6 @@ export const contour: IApplyInterface = () => {
             clearDep(drawContour);
             drawContour.width = e.clientX - drawContour.x - left;
             drawContour.height = e.clientY - drawContour.y - top;
-
-            // console.log(drawContour);
             //添加依赖
             crashDetection(drawContour);
             context.draw();
@@ -103,10 +109,13 @@ export const contour: IApplyInterface = () => {
         end() {
 
             isDrawWarp(drawContour);
+
             //这里等画边框组件把数据用完之后就把拖拽描边组件给删除了
             unloadDrawItem(drawContour)
+
             context.draw();
 
+            console.log(context.contextCanvasList);
         }
     }
 }

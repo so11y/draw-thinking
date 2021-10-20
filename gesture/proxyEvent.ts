@@ -1,6 +1,6 @@
 import { Draw } from "../Draw/baseDraw";
 import { IApplyInterface } from "../types/gesture";
-import { areaDetection } from "../util/functional";
+import { areaDetection, clearDep, unloadDrawItem } from "../util/functional";
 import { useContext, useObserveMove } from "../util/useSingle";
 import { contour } from "./contour";
 
@@ -53,10 +53,7 @@ export class ProxyEvent {
 
     privateApply(e: MouseEvent) {
 
-        const [context] = useContext();
-
-        context.contextCanvasList =
-            context.contextCanvasList.filter(v => v.componentKey !== "DrawWarp");
+        unloadDrawItem("DrawWarp");
 
         const applyContour = contour();
 

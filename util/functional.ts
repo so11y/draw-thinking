@@ -37,10 +37,13 @@ export const clearDep = (drawContour: DrawContour) => {
     drawContour.depend = [];
 }
 
-export const unloadDrawItem = (draw: Draw) => {
+export const unloadDrawItem = (draw: Draw | string) => {
     const [context] = useContext();
     context.contextCanvasList = context.contextCanvasList.filter(v => {
-        if (v === draw) {
+        if (typeof draw == "string" && v.componentKey === draw) {
+            clearDep(v);
+            return false;
+        } else if (v === draw) {
             clearDep(draw);
             return false;
         }

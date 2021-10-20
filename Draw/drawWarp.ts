@@ -1,6 +1,7 @@
 import { IDraw } from "../types/draw";
 import { useContext } from "../util/useSingle";
 import { Draw } from "./baseDraw";
+import { move } from "../gesture/move";
 
 export class DrawWarp extends Draw implements IDraw {
 
@@ -14,6 +15,7 @@ export class DrawWarp extends Draw implements IDraw {
 
     height: number = 0;
 
+    plugins = [move];
 
     draw() {
         const margin = 10;
