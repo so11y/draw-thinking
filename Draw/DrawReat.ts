@@ -1,13 +1,8 @@
 import { move } from "../gesture/move";
+import { scale } from "../gesture/scale";
 import { IDraw } from "../types/draw";
 import { useContext } from "../util/useSingle";
 import { Draw } from "./baseDraw";
-
-/**
- * 必须实现IDraw中定义的类型
- * 虽然继承了Draw但是并没有初始化接口中定义的类型
- * 这里之后在想办法调整
- */
 export class DrawRect extends Draw implements IDraw {
 
     x: number = 100;
@@ -19,7 +14,7 @@ export class DrawRect extends Draw implements IDraw {
     height: number = 100;
 
     //申明需要用到的手势
-    plugins = [move];
+    plugins = [move,scale];
 
     draw() {
         const { x, y, width, height } = this;

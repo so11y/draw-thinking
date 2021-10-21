@@ -13,10 +13,9 @@ export class Dot extends Draw implements IDraw {
 
     width: number = 6;
 
-    height: number = 6;
+    inject = ["scale"];
 
-    //申明需要用到的手势
-    plugins = [scale];
+    height: number = 6;
 
     direction: Idirection = "top-left";
 

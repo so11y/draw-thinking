@@ -4,6 +4,31 @@ import { DrawRect } from "../types/draw";
 import { GetDrawNumberType } from "../types/gesture";
 import { useContext } from "./useSingle";
 
+const getInject = (draw: Draw) => {
+
+    const plugins = draw.plugins.slice();
+
+    const getParentPlugins = (draw: Draw, pluginsKey: string) => {
+        if (draw.parent) {
+            const plugin = draw.parent.plugins.find(v => v.name === pluginsKey);
+
+            if (plugin) return plugin;
+
+            return getParentPlugins(draw.parent, pluginsKey);
+        }
+        throw new Error(`Inject ${pluginsKey} in parent not found`);
+    }
+
+    while (draw.inject.length) {
+        const key = draw.inject.pop();
+        plugins.push(getParentPlugins(draw, key))
+    }
+
+    draw.plugins = [...draw.plugins, ...plugins]
+}
+
+
+
 export const areaDetection = (x: number, y: number, drawItem: DrawRect) => {
     /**
      * 距离头部的y需要加一下
@@ -49,6 +74,15 @@ export const unMounted = (draw: Draw | string) => {
         }
         return true;
     });
+}
+
+export const useInject = (draw: Draw) => {
+    if (draw.inject.length) {
+        if (!draw.parent) {
+            throw new Error("useInject need parent");
+        }
+        getInject(draw);
+    }
 }
 
 export const getFrist = <T extends any[]>(arr: T): T[0] => {

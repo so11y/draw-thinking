@@ -14,10 +14,8 @@ export class ProxyEvent {
     }
 
     apply(e: MouseEvent) {
-        // unHighlight();
 
         const isActive = this.getTag(e);
-
         //移除其他的高亮 高亮一次只能有一个显示
         unOtherHighlight(isActive);
 

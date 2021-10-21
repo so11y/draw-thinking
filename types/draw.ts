@@ -35,6 +35,10 @@ export interface IDraw {
      * @description 申明需要使用到的手势
      */
     plugins: IApplyInterface[];
+    /**
+     * @description 注入手势
+     */
+    inject: string[];
 }
 
 export type Idirection = "top-left" | "top-right" | "bottom-left" | "buttom-right";
