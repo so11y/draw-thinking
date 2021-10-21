@@ -12,13 +12,13 @@ export class ProxyEvent {
     constructor() {
         window.addEventListener("mousedown", this.apply.bind(this));
     }
-scale
+
     apply(e: MouseEvent) {
-        unHighlight();
+        // unHighlight();
 
         const isActive = this.getTag(e);
 
-        console.log(isActive);
+        // console.log(isActive);
 
         if (isActive && isActive.plugins.length) {
             // 調用公开绘制组件注册的手势
