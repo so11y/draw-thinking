@@ -1,27 +1,10 @@
 import { Draw } from "../Draw/baseDraw";
 import { DrawContour } from "../Draw/drawContour";
-import { DrawWarp } from "../Draw/drawWarp";
-import { HighlightDraw } from "../Draw/highlightDraw";
 import { IApplyInterface } from "../types/gesture";
-import { clearDep, getMaxRect, getMinRect, unMounted } from "../util/functional";
+import { useDrawWarp } from "../useComponent/useDrawWarp";
+import { useHighlight } from "../useComponent/useHighlight";
+import { clearDep, getFrist, unMounted } from "../util/functional";
 import { useContext } from "../util/useSingle";
-
-
-const craeteWarp = (draw: Draw) => {
-    const rect = maxRect(draw);
-    if (draw.depend.length == 1) {
-        return new HighlightDraw();
-    } else {
-        const warpInstanc = new DrawWarp();
-        warpInstanc.x = rect.left;
-        warpInstanc.y = rect.top;
-        warpInstanc.width = rect.width;
-        warpInstanc.height = rect.height;
-
-        return warpInstanc;
-    }
-}
-
 
 
 /**
@@ -53,42 +36,23 @@ const crashDetection = (draw: Draw) => {
         }
     })
 }
-/**
- * @description 获取最大的边框
- */
-const maxRect = (draw: Draw) => {
 
-    const top = getMinRect("y", draw);
-    const left = getMinRect("x", draw);
-    const width = getMaxRect("x", draw) - left + getMaxRect("width", draw);
-    const height = getMaxRect("y", draw) - top + getMaxRect("height", draw);
-
-    return {
-        top,
-        left,
-        width,
-        height
-    }
-}
 /**
  * @description 绘制drawWarp组件
  */
 const isDrawWarp = (draw: Draw) => {
+    const [context] = useContext();
     if (draw.depend.length) {
-
-        const [context] = useContext();
-
-        const warpInstanc = craeteWarp(draw);//new DrawWarp();
-
-        //将全选框的依赖添加到warpInstanc中
-        draw.depend.forEach(v => {
-            v.parent = warpInstanc;
-            warpInstanc.depend.push(v);
-        })
-
-        draw.depend = [];
-
-        context.contextCanvasList.push(warpInstanc);
+        if (draw.depend.length == 1) {
+            context.activeCanvas = getFrist(draw.depend);
+            context.activeCanvas.parent = null;
+            useHighlight();
+            context.draw();
+            draw.depend = [];
+            context.activeCanvas = null;
+        } else {
+            useDrawWarp(draw);
+        }
     }
 }
 
@@ -123,7 +87,6 @@ export const contour: IApplyInterface = () => {
 
             //这里等画边框组件把数据用完之后就把拖拽描边组件给删除了
             unMounted(drawContour)
-
         }
     }
 }

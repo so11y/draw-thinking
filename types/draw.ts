@@ -36,3 +36,5 @@ export interface IDraw {
      */
     plugins: IApplyInterface[];
 }
+
+export type Idirection = "top-left" | "top-right" | "bottom-left" | "buttom-right";

@@ -10,9 +10,9 @@ import { Draw } from "./baseDraw";
  */
 export class DrawRect extends Draw implements IDraw {
 
-    x: number = 0;
+    x: number = 100;
 
-    y: number = 0;
+    y: number = 100;
 
     width: number = 100;
 

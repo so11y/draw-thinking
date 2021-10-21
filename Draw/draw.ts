@@ -1,3 +1,4 @@
+import { useProxyEvent } from "../util/useSingle";
 import { Draw } from "./baseDraw";
 
 export class DrawGo {
