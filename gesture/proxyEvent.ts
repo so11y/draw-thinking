@@ -1,6 +1,6 @@
 import { Draw } from "../Draw/baseDraw";
 import { IApplyInterface } from "../types/gesture";
-import { unHighlight, useHighlight } from "../useComponent/useHighlight";
+import { unHighlight, unOtherHighlight, useHighlight } from "../useComponent/useHighlight";
 import { areaDetection, unMounted } from "../util/functional";
 import { useContext, useObserveMove } from "../util/useSingle";
 import { contour } from "./contour";
@@ -18,7 +18,8 @@ export class ProxyEvent {
 
         const isActive = this.getTag(e);
 
-        // console.log(isActive);
+        //移除其他的高亮 高亮一次只能有一个显示
+        unOtherHighlight(isActive);
 
         if (isActive && isActive.plugins.length) {
             // 調用公开绘制组件注册的手势

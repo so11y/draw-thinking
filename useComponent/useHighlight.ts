@@ -1,9 +1,25 @@
+import { Draw } from "../Draw/baseDraw";
 import { Dot } from "../Draw/dot";
 import { HighlightDraw } from "../Draw/highlightDraw";
 import { Idirection } from "../types/draw";
 import { unMounted } from "../util/functional";
 import { useContext } from "../util/useSingle";
 
+const haveHighlight = (draw: Draw) => {
+    if (draw instanceof HighlightDraw) {
+        return {
+            is: true,
+            draw: draw
+        };
+    }
+    if (draw.parent) {
+        return haveHighlight(draw.parent);
+    }
+    return {
+        is: false,
+        draw: null
+    }
+}
 
 const useDot = (d: Idirection, parent: HighlightDraw) => {
     const [context] = useContext();
@@ -39,4 +55,19 @@ export const useHighlight = () => {
 export const unHighlight = () => {
     unMounted("HighlightDraw");
     unMounted("Dot");
+}
+
+export const unOtherHighlight = (draw: Draw) => {
+    const [context] = useContext();
+    if (draw) {
+        const count = context.contextCanvasList.filter(v => v instanceof HighlightDraw);
+        const isHighlight = haveHighlight(draw);
+        /**
+         * 如果当前点击自己和父级都不存在高亮组件
+         * 并且已经存在一个高亮组件那么就直接卸载
+         */
+        if (!isHighlight.is && count.length >= 1) {
+            unHighlight();
+        }
+    }
 }
