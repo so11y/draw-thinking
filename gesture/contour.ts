@@ -1,9 +1,28 @@
 import { Draw } from "../Draw/baseDraw";
 import { DrawContour } from "../Draw/drawContour";
 import { DrawWarp } from "../Draw/drawWarp";
+import { HighlightDraw } from "../Draw/highlightDraw";
 import { IApplyInterface } from "../types/gesture";
-import { clearDep, getMaxRect, getMinRect, unloadDrawItem } from "../util/functional";
+import { clearDep, getMaxRect, getMinRect, unMounted } from "../util/functional";
 import { useContext } from "../util/useSingle";
+
+
+const craeteWarp = (draw: Draw) => {
+    const rect = maxRect(draw);
+    if (draw.depend.length == 1) {
+        return new HighlightDraw();
+    } else {
+        const warpInstanc = new DrawWarp();
+        warpInstanc.x = rect.left;
+        warpInstanc.y = rect.top;
+        warpInstanc.width = rect.width;
+        warpInstanc.height = rect.height;
+
+        return warpInstanc;
+    }
+}
+
+
 
 /**
   * 碰撞檢測
@@ -59,14 +78,7 @@ const isDrawWarp = (draw: Draw) => {
 
         const [context] = useContext();
 
-        const rect = maxRect(draw);
-
-        const warpInstanc = new DrawWarp();
-
-        warpInstanc.x = rect.left;
-        warpInstanc.y = rect.top;
-        warpInstanc.width = rect.width;
-        warpInstanc.height = rect.height;
+        const warpInstanc = craeteWarp(draw);//new DrawWarp();
 
         //将全选框的依赖添加到warpInstanc中
         draw.depend.forEach(v => {
@@ -104,18 +116,14 @@ export const contour: IApplyInterface = () => {
             drawContour.height = e.clientY - drawContour.y - top;
             //添加依赖
             crashDetection(drawContour);
-            context.draw();
         },
         end() {
 
             isDrawWarp(drawContour);
 
             //这里等画边框组件把数据用完之后就把拖拽描边组件给删除了
-            unloadDrawItem(drawContour)
+            unMounted(drawContour)
 
-            context.draw();
-
-            console.log(context.contextCanvasList);
         }
     }
 }

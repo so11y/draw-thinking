@@ -1,8 +1,26 @@
 import { Draw } from "../Draw/baseDraw";
+import { HighlightDraw } from "../Draw/highlightDraw";
 import { IApplyInterface } from "../types/gesture";
-import { areaDetection, clearDep, unloadDrawItem } from "../util/functional";
+import { areaDetection, unMounted } from "../util/functional";
 import { useContext, useObserveMove } from "../util/useSingle";
 import { contour } from "./contour";
+
+const crateHighlight = (isActive: Draw) => {
+    const [context] = useContext();
+    if (!isActive.parent && isActive.depend.length == 0) {
+        //高亮
+        const highlightDraw = new HighlightDraw();
+        isActive.parent = highlightDraw;
+        highlightDraw.depend.push(isActive);
+        highlightDraw.plugins.push(...isActive.plugins)
+        context.contextCanvasList.push(highlightDraw);
+        context.activeCanvas = highlightDraw;
+        context.draw();
+    }
+}
+
+
+
 
 export class ProxyEvent {
 
@@ -27,9 +45,13 @@ export class ProxyEvent {
 
     publicApply(isActive: Draw, e: MouseEvent) {
 
+        unMounted("HighlightDraw");
+
         const [context] = useContext();
 
         context.activeCanvas = isActive;
+
+        crateHighlight(isActive);
 
         const activeCanvasPlugins = this._register.get(context.activeCanvas);
 
@@ -41,10 +63,12 @@ export class ProxyEvent {
             },
             move(e) {
                 plugins.forEach(v => v.move(e));
+                context.draw();
             },
             end(e) {
                 plugins.forEach(v => v.end(e));
                 context.activeCanvas = null;
+                context.draw();
             }
         });
 
@@ -53,8 +77,10 @@ export class ProxyEvent {
 
     privateApply(e: MouseEvent) {
 
-        unloadDrawItem("DrawWarp");
+        unMounted("DrawWarp");
+        unMounted("HighlightDraw");
 
+        const [context] = useContext();
         const applyContour = contour();
 
         const [run] = useObserveMove({
@@ -63,9 +89,11 @@ export class ProxyEvent {
             },
             move(e) {
                 applyContour.move(e);
+                context.draw();
             },
             end(e) {
                 applyContour.end(e);
+                context.draw();
             }
         });
 

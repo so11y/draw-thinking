@@ -53,7 +53,6 @@ export const move: IApplyInterface = () => {
                 })
             }
 
-            context.draw();
         },
         end() {
 

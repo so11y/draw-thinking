@@ -37,7 +37,7 @@ export const clearDep = (drawContour: DrawContour) => {
     drawContour.depend = [];
 }
 
-export const unloadDrawItem = (draw: Draw | string) => {
+export const unMounted = (draw: Draw | string) => {
     const [context] = useContext();
     context.contextCanvasList = context.contextCanvasList.filter(v => {
         if (typeof draw == "string" && v.componentKey === draw) {
@@ -49,4 +49,8 @@ export const unloadDrawItem = (draw: Draw | string) => {
         }
         return true;
     });
+}
+
+export const getFrist = <T extends any[]>(arr: T): T[0] => {
+    return arr[0];
 }
