@@ -88,3 +88,10 @@ export const useInject = (draw: Draw) => {
 export const getFrist = <T extends any[]>(arr: T): T[0] => {
     return arr[0];
 }
+
+export const linkDepend = (parent:Draw,child:Draw) => {
+    const [context] = useContext();
+    child.parent = parent;
+    parent.depend.push(child);
+    context.contextCanvasList.push(child);
+}

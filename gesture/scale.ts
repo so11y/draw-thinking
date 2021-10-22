@@ -23,7 +23,7 @@ export const scale: IApplyInterface = () => {
     const { parent } = activeCanvas;
 
     //获取当前的需要更改的组件
-    const draw = parent.depend.find(v => v.componentKey != "Dot");
+    const draw = parent.depend.find(v => !v.componentKey);
 
     const drawW = draw.width,
         drawH = draw.height,

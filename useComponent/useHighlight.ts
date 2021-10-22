@@ -1,8 +1,9 @@
 import { Draw } from "../Draw/baseDraw";
 import { Dot } from "../Draw/dot";
 import { HighlightDraw } from "../Draw/highlightDraw";
+import { LinkDot } from "../Draw/linkDot";
 import { Idirection } from "../types/draw";
-import { unMounted } from "../util/functional";
+import { linkDepend, unMounted } from "../util/functional";
 import { useContext } from "../util/useSingle";
 
 const haveHighlight = (draw: Draw) => {
@@ -22,11 +23,12 @@ const haveHighlight = (draw: Draw) => {
 }
 
 const useDot = (d: Idirection, parent: HighlightDraw) => {
-    const [context] = useContext();
     const dot = new Dot(d);
-    dot.parent = parent;
-    parent.depend.push(dot);
-    context.contextCanvasList.push(dot);
+    linkDepend(parent,dot);
+}
+const useLinkDot = (d: Idirection, parent: HighlightDraw) => {
+    const linkDot = new LinkDot(d);
+    linkDepend(parent,linkDot);
 }
 /**
  * 创建高亮组件
@@ -44,9 +46,12 @@ export const useHighlight = () => {
         context.contextCanvasList.push(highlightDraw);
         context.activeCanvas = highlightDraw;
 
-        const directions: Array<Idirection> = ["top-left", "top-right", "bottom-left", "buttom-right"];
+        const dotsDirections: Array<Idirection> = ["top-left", "top-right", "bottom-left", "buttom-right"];
+        const linkDotsDirections: Array<Idirection> = ["top-center", "left-center", "button-center", "right-center"];
 
-        directions.forEach(v => useDot(v, highlightDraw));
+        dotsDirections.forEach(v => useDot(v, highlightDraw));
+
+        linkDotsDirections.forEach(v => useLinkDot(v, highlightDraw));
 
         context.draw();
     }
@@ -54,6 +59,7 @@ export const useHighlight = () => {
 
 export const unHighlight = () => {
     unMounted("HighlightDraw");
+    unMounted("LinkDot");
     unMounted("Dot");
 }
 

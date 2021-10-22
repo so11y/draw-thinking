@@ -10,7 +10,7 @@ export class HighlightDraw extends Draw implements IDraw {
     plugins = [];
 
     init() {
-        const margin = 10;
+        const margin = 4;
         const { x, y, width, height } = getFrist(this.depend);
         this.x = x - margin;
         this.y = y - margin;

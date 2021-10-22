@@ -41,4 +41,11 @@ export interface IDraw {
     inject: string[];
 }
 
-export type Idirection = "top-left" | "top-right" | "bottom-left" | "buttom-right";
+export type Idirection = "top-left"     |
+                         "top-right"    |
+                         "bottom-left"  |
+                         "buttom-right" |
+                         "top-center"   |
+                         "left-center"  |
+                         "button-center"|
+                         "right-center";
