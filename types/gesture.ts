@@ -1,6 +1,6 @@
 import { Draw } from "../Draw/baseDraw";
 
-type InstanceType = "move" | "contour" | "scale";
+type InstanceType = "move" | "contour" | "scale" | "NOOP";
 //手势
 export type Igesture = Array<InstanceType>;
 

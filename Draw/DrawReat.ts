@@ -14,7 +14,7 @@ export class DrawRect extends Draw implements IDraw {
     height: number = 100;
 
     //申明需要用到的手势
-    plugins = [move,scale];
+    plugins = [move, scale];
 
     draw() {
         const { x, y, width, height } = this;

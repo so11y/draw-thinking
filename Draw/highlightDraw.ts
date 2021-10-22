@@ -2,26 +2,6 @@ import { IDraw } from "../types/draw";
 import { getFrist } from "../util/functional";
 import { useContext, useProxyEvent } from "../util/useSingle";
 import { Draw } from "./baseDraw";
-import { DrawRect } from "./DrawReat";
-
-
-
-// const cratedDot = (direction: direction, parent: HighlightDraw): Draw => {
-//     const [context] = useContext();
-//     const rect = 30;
-//     const drawRect = new DrawRect();
-//     drawRect.componentKey = "Dot";
-//     drawRect.width = rect;
-//     drawRect.height = rect;
-//     //这里添加放大缩小手势
-//     drawRect.plugins = [];
-
-//     setDirection(direction, drawRect, parent, rect);
-
-//     context.contextCanvasList.push(drawRect);
-//     return drawRect;
-// }
-
 export class HighlightDraw extends Draw implements IDraw {
 
     componentKey = "HighlightDraw";
