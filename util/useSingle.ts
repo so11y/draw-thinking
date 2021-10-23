@@ -28,22 +28,6 @@ export const useProxyEvent = (): [ProxyEvent] => {
     return [useSingle.useInstance(ProxyEvent)]
 }
 
-export const NOOP = () => { };
-
-/**
- *
- * @description 这边也是设计缺陷了 导致先这么搞一下
- * 没有设计跳过的步骤
- */
-export const useBreakEvent = (): IgestureInstance => {
-    return {
-        type: "NOOP",
-        start: NOOP,
-        move: NOOP,
-        end: NOOP
-    }
-}
-
 export const useObserveMove = (obEvent: Omit<IgestureInstance, "type">): [(e: MouseEvent) => void] => {
     const end = (e: MouseEvent) => {
         obEvent.end(e);

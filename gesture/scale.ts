@@ -1,20 +1,12 @@
 import { Dot } from "../Draw/dot";
 import { IApplyInterface } from "../types/gesture";
-import { useBreakEvent, useContext } from "../util/useSingle";
+import { useContext } from "../util/useSingle";
 
 
 
-export const scale: IApplyInterface = () => {
+const scale: IApplyInterface = () => {
 
     const [context] = useContext();
-
-    /**
-     * 这边也是设计缺陷了 导致先这么搞一下
-     * 没有设计跳过的步骤
-     */
-    if (context.activeCanvas.componentKey != "Dot") {
-        return useBreakEvent();
-    }
 
     const { top, left } = context.offset;
 
@@ -66,3 +58,9 @@ export const scale: IApplyInterface = () => {
         }
     }
 }
+scale.ignore = () => {
+    const [context] = useContext();
+   return context.activeCanvas.componentKey != "Dot";
+}
+
+export { scale };

@@ -1,6 +1,6 @@
 import { Draw } from "../Draw/baseDraw";
 
-type InstanceType = "move" | "contour" | "scale" | "NOOP";
+type InstanceType = "move" | "contour" | "scale" | "linkLine" | "NOOP";
 //手势
 export type Igesture = Array<InstanceType>;
 
@@ -20,7 +20,10 @@ export interface IgestureInstance {
     end(e: MouseEvent): any;
 }
 
-export type IApplyInterface = () => IgestureInstance;
+export type IApplyInterface = {
+    (): IgestureInstance;
+    ignore?(): boolean
+}
 
 
 

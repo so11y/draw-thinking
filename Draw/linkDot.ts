@@ -1,7 +1,6 @@
 import { Idirection, IDraw } from "../types/draw";
 import { useContext } from "../util/useSingle";
 import { Draw } from "./baseDraw";
-import { move } from "../gesture/move";
 
 export class LinkDot extends Draw implements IDraw {
 
@@ -11,11 +10,11 @@ export class LinkDot extends Draw implements IDraw {
 
     y: number = 0;
 
-    width: number = 12;
+    width: number = 6;
 
-    height: number = 0;
+    height: number = 6;
 
-    plugins = [move];
+    inject = ["linkLine"];
 
     direction: Idirection = "top-center";
 
@@ -24,14 +23,16 @@ export class LinkDot extends Draw implements IDraw {
         this.direction = d;
     }
     draw() {
-        const { x, y, width, height } = this;
+        const { x, y, width,height } = this;
         const [context] = useContext();
         context.ctx.save()
         context.ctx.beginPath();
         this.setDirection();
         context.ctx.fillStyle = '#f7b75d';
-        context.ctx.arc(x, y, width / 2, 0, Math.PI * 2, true);
+        context.ctx.strokeStyle = '#f7b75d';
+        context.ctx.rect(x, y, width, height);
         context.ctx.fill();
+        context.ctx.stroke();
         context.ctx.closePath();
         context.ctx.restore();
         super.draw();
@@ -41,19 +42,19 @@ export class LinkDot extends Draw implements IDraw {
         switch (this.direction) {
             case "top-center":
                 this.x = this.parent.x + this.parent.width / 2;
-                this.y = this.parent.y;
+                this.y = this.parent.y - this.height / 2;
                 break;
             case "left-center":
                 this.x = this.parent.x;
                 this.y = this.parent.y + this.parent.height / 2;
                 break;
             case "right-center":
-                this.x = this.parent.x + this.parent.width;
-                this.y = this.parent.y + this.parent.height / 2;;
+                this.x = this.parent.x + this.parent.width - this.width / 2;
+                this.y = this.parent.y + this.parent.height / 2;
                 break;
             case "button-center":
                 this.x = this.parent.x + this.parent.width / 2;
-                this.y = this.parent.y + this.parent.height;
+                this.y = this.parent.y + this.parent.height - this.height / 2;
                 break;
         }
     }

@@ -1,3 +1,4 @@
+import { linkLine } from "../gesture/linkLine";
 import { move } from "../gesture/move";
 import { scale } from "../gesture/scale";
 import { IDraw } from "../types/draw";
@@ -14,7 +15,7 @@ export class DrawRect extends Draw implements IDraw {
     height: number = 100;
 
     //申明需要用到的手势
-    plugins = [move, scale];
+    plugins = [move, scale,linkLine];
 
     draw() {
         const { x, y, width, height } = this;
