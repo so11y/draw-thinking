@@ -37,7 +37,7 @@ export class ProxyEvent {
         useHighlight();
 
         const activeCanvasPlugins = this._register.get(context.activeCanvas)
-        .filter(v=>v.ignore ? v.ignore() : true);
+        .filter(v=>v.ignore ? !v.ignore() : true);
 
         const plugins = activeCanvasPlugins.map(v => v());
 

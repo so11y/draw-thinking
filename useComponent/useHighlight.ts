@@ -63,6 +63,8 @@ export const unHighlight = () => {
     unMounted("Dot");
 }
 
+//这里可以等添加了组建的生命周期之后,把这个移动到对应的
+//beforeDraw里
 export const unOtherHighlight = (draw: Draw) => {
     const [context] = useContext();
     if (draw) {
